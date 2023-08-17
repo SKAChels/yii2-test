@@ -1,13 +1,12 @@
 <?php
 
-namespace app\models\search;
+namespace app\models\history;
 
-use app\models\History;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * HistorySearch represents the model behind the search form about `app\models\History`.
+ * HistorySearch represents the model behind the search form about `app\models\history\History`.
  *
  * @property array $objects
  */

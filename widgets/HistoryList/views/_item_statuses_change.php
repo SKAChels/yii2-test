@@ -1,6 +1,6 @@
 <?php
 
-use app\models\History;
+use app\models\history\History;
 
 /* @var $model History */
 /* @var $oldValue string */

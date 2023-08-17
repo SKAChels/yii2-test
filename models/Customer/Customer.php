@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\Customer;
 
 
 use Yii;
@@ -13,14 +13,8 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $name
  */
-class Customer extends ActiveRecord
+class CustomerSchema extends ActiveRecord
 {
-    const QUALITY_ACTIVE = 'active';
-    const QUALITY_REJECTED = 'rejected';
-    const QUALITY_COMMUNITY = 'community';
-    const QUALITY_UNASSIGNED = 'unassigned';
-    const QUALITY_TRICKLE = 'trickle';
-
     const TYPE_LEAD = 'lead';
     const TYPE_DEAL = 'deal';
     const TYPE_LOAN = 'loan';
@@ -51,29 +45,6 @@ class Customer extends ActiveRecord
         return [
             'name' => Yii::t('app', 'Name'),
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getQualityTexts()
-    {
-        return [
-            self::QUALITY_ACTIVE => Yii::t('app', 'Active'),
-            self::QUALITY_REJECTED => Yii::t('app', 'Rejected'),
-            self::QUALITY_COMMUNITY => Yii::t('app', 'Community'),
-            self::QUALITY_UNASSIGNED => Yii::t('app', 'Unassigned'),
-            self::QUALITY_TRICKLE => Yii::t('app', 'Trickle'),
-        ];
-    }
-
-    /**
-     * @param $quality
-     * @return mixed|null
-     */
-    public static function getQualityTextByQuality($quality)
-    {
-        return self::getQualityTexts()[$quality] ?? $quality;
     }
 
     /**

@@ -1,0 +1,19 @@
+namespace: app\tests
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    helpers: tests/_support
+settings:
+    colors: true
+    bootstrap: _bootstrap.php
+coverage:
+    enabled: true
+    show_uncovered: false
+    include:
+        - ./*.php
+    exclude:
+        - tests/*
+        - config/*
+        - models/*
