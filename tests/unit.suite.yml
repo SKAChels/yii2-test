@@ -1,0 +1,9 @@
+class_name: UnitTester
+bootstrap: false
+modules:
+  enabled:
+    - Asserts
+    #- \Helper\Unit
+    - Yii2:
+        configFile: 'config/console.php'
+#        part: fixtures

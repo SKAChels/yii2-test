@@ -1,7 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\call;
 
+use app\models\customer\Customer;
+use app\models\User;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -31,14 +33,8 @@ use yii\db\ActiveRecord;
  * @property Customer $customer
  * @property User $user
  */
-class Call extends ActiveRecord
+class CallSchema extends ActiveRecord
 {
-    const STATUS_NO_ANSWERED = 0;
-    const STATUS_ANSWERED = 1;
-
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
-
     public $duration = 720;
 
     /**
@@ -102,42 +98,6 @@ class Call extends ActiveRecord
     }
 
     /**
-     * @return string
-     */
-    public function getClient_phone()
-    {
-        return $this->direction == self::DIRECTION_INCOMING ? $this->phone_from : $this->phone_to;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getTotalStatusText()
-    {
-        if (
-            $this->status == self::STATUS_NO_ANSWERED
-            && $this->direction == self::DIRECTION_INCOMING
-        ) {
-            return Yii::t('app', 'Missed Call');
-        }
-
-        if (
-            $this->status == self::STATUS_NO_ANSWERED
-            && $this->direction == self::DIRECTION_OUTGOING
-        ) {
-            return Yii::t('app', 'Client No Answer');
-        }
-
-        $msg = $this->getFullDirectionText();
-
-        if ($this->duration) {
-            $msg .= ' (' . $this->getDurationText() . ')';
-        }
-
-        return $msg;
-    }
-
-    /**
      * @param bool $hasComment
      * @return string
      */
@@ -148,35 +108,5 @@ class Call extends ActiveRecord
             $t[] = $this->comment;
         }
         return implode(': ', $t);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getFullDirectionTexts()
-    {
-        return [
-            self::DIRECTION_INCOMING => Yii::t('app', 'Incoming Call'),
-            self::DIRECTION_OUTGOING => Yii::t('app', 'Outgoing Call'),
-        ];
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getFullDirectionText()
-    {
-        return self::getFullDirectionTexts()[$this->direction] ?? $this->direction;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDurationText()
-    {
-        if (!is_null($this->duration)) {
-            return $this->duration >= 3600 ? gmdate("H:i:s", $this->duration) : gmdate("i:s", $this->duration);
-        }
-        return '00:00';
     }
 }
